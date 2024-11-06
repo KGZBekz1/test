@@ -5,7 +5,7 @@ from aiogram.filters import Command
 from dotenv import dotenv_values
 
 
-token = dotenv_values(".env")["TOKEN"]
+token = dotenv_values(".env")["TELEGRAM_TOKEN"]
 bot = Bot(token=token)
 dp = Dispatcher()
 
@@ -22,6 +22,26 @@ async def start_handler(message: types.Message):
 
     msg = f"Привет, {name}, наш бот обслуживает уже {user_count} пользователя."
     await message.answer(msg)
+
+
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
+
+@dp.message_handler(commands=["start"])
+async def start_command(message: types.Message):
+    unique_users.add(message.from_user.id)
+    user_count = len(unique_users)
+    greeting_text = (
+        f"Привет, {message.from_user.first_name}!\n"
+        f"Бот обслуживает уже {user_count} пользователей."
+    )
+
+    # Кнопки
+    keyboard = InlineKeyboardMarkup().add(
+        InlineKeyboardButton("Наш сайт", url="https://example.com"),
+        InlineKeyboardButton("Инстаграм", url="https://instagram.com/example")
+    )
+    await message.reply(greeting_text, reply_markup=keyboard)
 
 
 @dp.message(Command("myinfo"))
@@ -47,5 +67,5 @@ async def main():
 
     await dp.start_polling(bot)
 
-if __name__ == '__main__':
+if __name__ == 'main':
     asyncio.run(main())
