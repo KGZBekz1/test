@@ -38,8 +38,8 @@ async def start_command(message: types.Message):
 
     # Кнопки
     keyboard = InlineKeyboardMarkup().add(
-        InlineKeyboardButton("Наш сайт", url="https://example.com"),
-        InlineKeyboardButton("Инстаграм", url="https://instagram.com/example")
+        InlineKeyboardButton("Model Overview | Porsche Car Configurator", url="https://configurator.porsche.com/model-start/pictures/718/extcam01.webp"),
+        InlineKeyboardButton("Porsche Cayenne 2023", url="https://www.ixbt.com/img/x780/n1/news/2023/3/2/it-4YkUkw-1681753319%20copy_large.jpg")
     )
     await message.reply(greeting_text, reply_markup=keyboard)
 
